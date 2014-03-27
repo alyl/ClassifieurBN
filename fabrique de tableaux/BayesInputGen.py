@@ -46,10 +46,6 @@ print 'Users dropped in users.csv'
 print str(int((time.time() - start) * 1000)) + 'ms'
 
 
-print '===================='
-print 'Ratings table generated'
-print str(int((time.time() - start) * 1000)) + 'ms'
-
 truc = [[1,1],[2,2]]
 with open('ratings.csv','wb') as rating_drop :
     rating_writer = csv.writer(rating_drop, delimiter=',', quotechar='|', quoting = csv.QUOTE_MINIMAL)
@@ -58,6 +54,8 @@ with open('ratings.csv','wb') as rating_drop :
         for j in range(1682):
             if j+1 in users[i].ratings.keys():
                 row.append(users[i].ratings[j+1])
+            else:
+                row.append(-1)
         rating_writer.writerow(row)
             
 rating_drop.close()
