@@ -49,8 +49,12 @@ print str(int((time.time() - start) * 1000)) + 'ms'
 truc = [[1,1],[2,2]]
 with open('ratings.csv','wb') as rating_drop :
     rating_writer = csv.writer(rating_drop, delimiter=',', quotechar='|', quoting = csv.QUOTE_MINIMAL)
+    attr = ['job']
+    for i in range(1682):
+        attr.append("film " +str(i+1))
+    rating_writer.writerow(attr)
     for i in range(943):
-        row = []
+        row = [users[i].job]
         for j in range(1682):
             if j+1 in users[i].ratings.keys():
                 row.append(users[i].ratings[j+1])
