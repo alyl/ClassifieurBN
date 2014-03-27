@@ -1,7 +1,7 @@
 import time
 import collections
 import csv
-
+import os
 
 User = collections.namedtuple(
     'User', ['id', 'age', 'sexe', 'job', 'zip', 'ratings'])
@@ -9,7 +9,10 @@ User = collections.namedtuple(
 
 start = time.time()
 
+
 users = []
+notes = [[-1]*1682]*943
+
 with open('u.user', 'rb') as user_file:
     user_reader = csv.reader(user_file, delimiter='|')
     for user in user_reader:
@@ -25,7 +28,7 @@ print str(int((time.time() - start) * 1000)) + 'ms'
 with open('u.data', 'rb') as movie_file:
     movie_reader = csv.reader(movie_file, delimiter='\t')
     for movie in movie_reader:
-        users[int(movie[0])-1].ratings[int(movie[1])] = float(movie[2])
+        users[int(movie[0])-1].ratings[int(movie[1])] = int(movie[2])
 
 movie_file.close()
 print '===================='
@@ -41,3 +44,24 @@ user_drop.close()
 print '===================='
 print 'Users dropped in users.csv'
 print str(int((time.time() - start) * 1000)) + 'ms'
+
+
+print '===================='
+print 'Ratings table generated'
+print str(int((time.time() - start) * 1000)) + 'ms'
+
+truc = [[1,1],[2,2]]
+with open('ratings.csv','wb') as rating_drop :
+    rating_writer = csv.writer(rating_drop, delimiter=',', quotechar='|', quoting = csv.QUOTE_MINIMAL)
+    for i in range(943):
+        row = []
+        for j in range(1682):
+            if j+1 in users[i].ratings.keys():
+                row.append(users[i].ratings[j+1])
+        rating_writer.writerow(row)
+            
+rating_drop.close()
+print '===================='
+print 'Ratings dropped in ratings.csv'
+print str(int((time.time() - start) * 1000)) + 'ms'            
+    
