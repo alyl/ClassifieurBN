@@ -11,7 +11,7 @@ start = time.time()
 
 
 users = []
-notes = [[-1]*1682]*943
+notes = [[None]*1682]*943
 
 with open('u.user', 'rb') as user_file:
     user_reader = csv.reader(user_file, delimiter='|')
@@ -47,7 +47,7 @@ print str(int((time.time() - start) * 1000)) + 'ms'
 
 
 truc = [[1,1],[2,2]]
-with open('ratings.csv','wb') as rating_drop :
+with open('ratings_job_flim.csv','wb') as rating_drop :
     rating_writer = csv.writer(rating_drop, delimiter=',', quotechar='|', quoting = csv.QUOTE_MINIMAL)
     attr = ['job']
     for i in range(1682):
@@ -59,11 +59,11 @@ with open('ratings.csv','wb') as rating_drop :
             if j+1 in users[i].ratings.keys():
                 row.append(users[i].ratings[j+1])
             else:
-                row.append(-1)
+                row.append(None)
         rating_writer.writerow(row)
             
 rating_drop.close()
 print '===================='
-print 'Ratings dropped in ratings.csv'
+print 'Ratings dropped in ratings_job_flim.csv'
 print str(int((time.time() - start) * 1000)) + 'ms'            
     
