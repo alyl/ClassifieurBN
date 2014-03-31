@@ -47,7 +47,7 @@ print str(int((time.time() - start) * 1000)) + 'ms'
 
 
 truc = [[1,1],[2,2]]
-with open('ratings_job_flim.csv','wb') as rating_drop :
+with open('ratings_job_film.csv','wb') as rating_drop :
     rating_writer = csv.writer(rating_drop, delimiter=',', quotechar='|', quoting = csv.QUOTE_MINIMAL)
     attr = ['job']
     for i in range(1682):
