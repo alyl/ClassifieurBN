@@ -4,7 +4,9 @@
 # and then we'll test predictions of these films using weka classifier model
 
 # Most noted film : Film 50 is noted 583 times.
-# 
+
+
+# Output 2 files  :  most_noted_film.csv and ratings_job_film_filter_film50.csv
 
 
 import time
@@ -53,22 +55,24 @@ drop_file.close()
 print 'data_dropped, time = ' + str(int((time.time() - start)*1000)) + 'ms'
 
 
-# '''========= filter users : we keep the user who notes Film50 ==========='''
+'''========= filter users : we keep the user who notes Film50 ==========='''
 
-# with open('ratings_job_film.csv', 'rb') as data:
-#     data_reader = csv.reader(data, delimiter=',')
-    
-#     for item in data_reader:
-#         # if there's a note for Film 50
-#         # then we keep this user in our user-data_filter
-#         if item[50]:
-#             user_data_filter.append(item)
-# data.close()
+with open('ratings_job_film.csv', 'rb') as data:
+    data_reader = csv.reader(data, delimiter=',')
 
-# with open ('ratings_job_film_filter_film50.csv', 'wb') as new_file:
-#     new_writer = csv.writer( new_file, delimiter =',')
-#     for item in user_data_filter:
-#         new_writer.writerow(item)
+    for item in data_reader:
+        # if there's a note for Film 50
+        # then we keep this user in our user-data_filter
+        if item[50]:
+            user_data_filter.append(item)
+data.close()
 
-# new_file.close()
-# print 'ratings_job_film_filter_film50 created, time = ' + str(int((time.time() - start)*1000)) + 'ms'
+with open ('ratings_job_film_filter_film50.csv', 'wb') as new_file:
+    new_writer = csv.writer( new_file, delimiter =',')
+    head = ['film ' + str(i) for i in range(1,FilmNb+1)]
+    new_writer.writerow(head)
+    for item in user_data_filter:
+        new_writer.writerow(item)
+
+new_file.close()
+print 'ratings_job_film_filter_film50 created, time = ' + str(int((time.time() - start)*1000)) + 'ms'
